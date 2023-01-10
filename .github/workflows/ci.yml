@@ -10,8 +10,19 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install
-        run: npm install -g tree-sitter-cli
+      - name: Clone tree-sitter-rescript
+        run: git clone --depth 1 https://github.com/nkrkv/tree-sitter-rescript.git
 
-      - name: Generate
-        run: tree-sitter build-wasm
+      - name: Build
+        working-directory: tree-sitter-rescript/
+        run: |
+          yarn install --frozen-lockfile
+          yarn tree-sitter generate
+          yarn tree-sitter build-wasm
+          cp tree-sitter-rescript.wasm ../
+
+      - name: Commit wasm
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(build): generate wasm"
+          file_pattern: tree-sitter-rescript.wasm
