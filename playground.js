@@ -272,7 +272,6 @@ let queryInput = `(comment) @comment
   const queryCheckbox = document.getElementById('query-checkbox');
   const queryContainer = document.getElementById('query-container');
   const updateTimeSpan = document.getElementById('update-time');
-  const buttonShare = document.getElementById('share-code')
 
   await TreeSitter.init();
 
@@ -325,12 +324,6 @@ let queryInput = `(comment) @comment
   loggingCheckbox.addEventListener('change', handleLoggingChange);
   queryCheckbox.addEventListener('change', handleQueryEnableChange);
   outputContainer.addEventListener('click', handleTreeClick);
-  buttonShare.addEventListener('click', () => {
-    const url = new URL(window.location.href)
-    const codeEncoded = encodeURIComponent(codeEditor.getValue())
-    const shareLink = url.href + '?code=' + codeEncoded
-    navigator.clipboard.writeText(shareLink)
-  })
 
   handleQueryEnableChange();
 
