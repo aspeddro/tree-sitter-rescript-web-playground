@@ -13,7 +13,7 @@ jobs:
       - name: Clone tree-sitter-rescript
         run: |
           git clone https://github.com/aspeddro/tree-sitter-rescript.git
-          git switch fix-type-scanner
+          git checkout fix-type-scanner
 
       - name: Build
         working-directory: tree-sitter-rescript/
