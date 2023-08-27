@@ -26,9 +26,6 @@ let queryInput = `(comment) @comment
 [
   (type_identifier)
   (unit_type)
-] @type
-
-[
   (list)
   (list_pattern)
 ] @type
@@ -45,6 +42,9 @@ let queryInput = `(comment) @comment
 (member_expression (property_identifier) @property)
 (module_identifier) @namespace
 
+; Parameters
+;----------------
+
 (list_pattern (value_identifier) @parameter)
 (spread_pattern (value_identifier) @parameter)
 
@@ -57,7 +57,7 @@ let queryInput = `(comment) @comment
 ] @string
 
 (template_substitution
-  "\${" @punctuation.bracket
+  "${" @punctuation.bracket
   "}" @punctuation.bracket) @embedded
 
 (character) @string.special
@@ -87,14 +87,16 @@ let queryInput = `(comment) @comment
 ; single parameter with no parens
 (function parameter: (value_identifier) @parameter)
 
+; first-level descructuring (required for nvim-tree-sitter as it only matches direct
+; children and the above patterns do not match destructuring patterns in NeoVim)
+(parameter (tuple_pattern (tuple_item_pattern (value_identifier) @parameter)))
+(parameter (array_pattern (value_identifier) @parameter))
+(parameter (record_pattern (value_identifier) @parameter))
+
 ; Meta
 ;-----
 
-[
- "@"
- "@@"
- (decorator_identifier)
-] @annotation
+(decorator_identifier) @annotation
 
 (extension_identifier) @keyword
 ("%") @keyword
@@ -124,12 +126,13 @@ let queryInput = `(comment) @comment
   "assert"
   "await"
   "with"
-  "unpack"
   "lazy"
   "constraint"
 ] @keyword
 
 ((function "async" @keyword))
+
+(module_unpack "unpack" @keyword)
 
 [
   "if"
@@ -235,8 +238,7 @@ let queryInput = `(comment) @comment
 ; Error
 ;----------
 
-(ERROR) @error
-`;
+(ERROR) @error`;
 
 (async () => {
   const CAPTURE_REGEX = /@\s*([\w\._-]+)/g;
