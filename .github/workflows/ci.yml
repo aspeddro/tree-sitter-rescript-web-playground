@@ -11,11 +11,12 @@ jobs:
           node-version: 16
 
       - name: Clone tree-sitter-rescript
-        run: git clone --depth 1 https://github.com/nkrkv/tree-sitter-rescript.git
+        run: git clone https://github.com/aspeddro/tree-sitter-rescript.git
 
       - name: Build
         working-directory: tree-sitter-rescript/
         run: |
+          git checkout fix-type-scanner
           yarn install --frozen-lockfile
           yarn tree-sitter generate
           yarn tree-sitter build-wasm
