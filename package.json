@@ -1,0 +1,23 @@
+{
+  "name": "tree-sitter-rescript-web-playground",
+  "version": "1.0.0",
+  "description": "[Playground](https://aspeddro.github.io/tree-sitter-rescript-web-playground/)",
+  "main": "playground.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspeddro/tree-sitter-rescript-web-playground.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aspeddro/tree-sitter-rescript-web-playground/issues"
+  },
+  "homepage": "https://github.com/aspeddro/tree-sitter-rescript-web-playground#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

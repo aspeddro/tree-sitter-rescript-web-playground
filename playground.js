@@ -57,7 +57,7 @@ let queryInput = `(comment) @comment
 ] @string
 
 (template_substitution
-  "${" @punctuation.bracket
+  "$\{" @punctuation.bracket
   "}" @punctuation.bracket) @embedded
 
 (character) @string.special
